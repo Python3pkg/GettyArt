@@ -1,12 +1,12 @@
 """Script to scrape images from getty.edu"""
 
 
-from __future__ import absolute_import
+
 
 import itertools
 import os
 import re
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
 from getty_art import util
 
@@ -102,7 +102,7 @@ class Scraper(object):
             category=self._category,
             batchsize=self._batchsize,
             page=page)
-        return urllib.urlopen(url)
+        return urllib.request.urlopen(url)
 
     def scrape(self, num=None, basedir=None):
         """Scrapes and downloads images from getty.edu to a local directory.
@@ -118,7 +118,7 @@ class Scraper(object):
         filenames = []
         for image_url in itertools.islice(self, num):
             filename = self.format_filename(image_url, basedir)
-            urllib.urlretrieve(image_url, filename)
+            urllib.request.urlretrieve(image_url, filename)
             filenames.append(filename)
         return filenames
 
